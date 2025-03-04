@@ -36,3 +36,26 @@ export const generateShortUrl = async (req: Request, res: Response): Promise<voi
         return
     }
 }
+
+export const redirectShortUrl = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { shortUrl } = req.params
+
+        const findUrl = await Link.findOne({
+            newUrl: `http://squishlink/${shortUrl}`
+        })
+
+        if (!findUrl) {
+            res.status(404).json({
+                error: 'Short URL not found.'
+            })
+            return
+        }
+
+        res.redirect(findUrl?.oldUrl || '/404')
+    } catch (e) {
+        console.log('Something went wrong', e)
+        res.status(500).json({ error: 'Internal server error' })
+        return
+    }
+}

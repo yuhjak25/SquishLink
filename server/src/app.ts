@@ -3,8 +3,7 @@ export const app = express()
 
 import { linkRoutes } from './routes/link'
 import { logMiddleware } from './middleware/logMiddleware'
-import { validateMiddleware } from './middleware/validateSchema'
-import { linkSchema } from './schemas/linkSchema'
+
 
 
 app
