@@ -12,9 +12,13 @@ const linkSchema = new Schema(
             unique: true,
             immutable: true
         },
-        expiresAt: { type: Date, default: () => new Date(Date.now() + 60 * 60 * 1000), index: { expires: 3600 } }
+        expireAfterSeconds: {
+            type: Number,
+            default: 60
+        }
     },
     { timestamps: true }
 );
 
+linkSchema.index({ createdAt: 1 }, { expireAfterSeconds: 1800 });
 export default model("Link", linkSchema);

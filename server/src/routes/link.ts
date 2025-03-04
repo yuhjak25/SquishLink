@@ -14,6 +14,6 @@ linkRoutes
     .get('/:shortUrl', async (req, res) => {
         return await redirectShortUrl(req, res)
     })
-    .get('/', (req: Request, res: Response) => {
+    .get('/', (_req: Request, res: Response) => {
         res.json({ message: 'Welcome to SquishLink API' });
     });
