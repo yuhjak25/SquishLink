@@ -61,3 +61,15 @@ export const redirectShortUrl = async (req: Request, res: Response): Promise<voi
         return
     }
 }
+
+export const getShortUrls = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const fetchLinks = await Link.find({})
+
+        res.json(fetchLinks)
+    } catch (e) {
+        console.error('Something went wrong', e)
+        res.status(500).json({ error: 'Internal server error' })
+        return
+    }
+}

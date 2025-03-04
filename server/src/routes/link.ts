@@ -1,6 +1,5 @@
 import express from 'express'
-import type { Response, Request } from 'express'
-import { generateShortUrl, redirectShortUrl } from '../services/link'
+import { generateShortUrl, getShortUrls, redirectShortUrl } from '../services/link'
 import { validateMiddleware } from '../middleware/validateSchema'
 import { linkSchema } from '../schemas/linkSchema'
 
@@ -13,5 +12,8 @@ linkRoutes
     })
     .get('/:shortUrl', async (req, res) => {
         return await redirectShortUrl(req, res)
+    })
+    .get('/', async (req, res) => {
+        return await getShortUrls(req, res)
     })
 
