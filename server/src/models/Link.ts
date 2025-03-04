@@ -1,4 +1,4 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose"
 
 const linkSchema = new Schema(
     {
@@ -18,7 +18,7 @@ const linkSchema = new Schema(
         }
     },
     { timestamps: true }
-);
+)
 
-linkSchema.index({ createdAt: 1 }, { expireAfterSeconds: 1800 });
-export default model("Link", linkSchema);
+linkSchema.index({ createdAt: 1 }, { expireAfterSeconds: 1800 })
+export default model("Link", linkSchema)
