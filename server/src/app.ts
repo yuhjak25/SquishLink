@@ -1,5 +1,7 @@
 import express from 'express'
 export const app = express()
 
-app.use(express.json())
+import { linkRoutes } from './routes/link'
 
+app.use(express.json())
+    .use('/api/links', linkRoutes)
