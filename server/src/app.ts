@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 export const app = express()
 
 import type { Request, Response } from 'express'
@@ -8,10 +9,11 @@ import { logMiddleware } from './middleware/logMiddleware'
 
 
 
-app
+app.use(express.json())
+    .use(cors())
+    .use(logMiddleware)
+    .use('/api/links', linkRoutes)
     .get('/', (_req: Request, res: Response) => {
         res.json({ message: 'Welcome to SquishLink API' })
     })
-    .use(express.json())
-    .use(logMiddleware)
-    .use('/api/links', linkRoutes)
+
