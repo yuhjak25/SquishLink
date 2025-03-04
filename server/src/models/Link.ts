@@ -1,4 +1,4 @@
-import mongoose, { model, Schema } from "mongoose"
+import { model, Schema } from "mongoose"
 
 const linkSchema = new Schema(
     {
@@ -12,9 +12,13 @@ const linkSchema = new Schema(
             unique: true,
             immutable: true
         },
+        clicks: {
+            type: Number,
+            default: 0,
+        },
         expireAfterSeconds: {
             type: Number,
-            default: 60
+            default: 1800
         }
     },
     { timestamps: true }

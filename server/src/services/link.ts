@@ -41,9 +41,11 @@ export const redirectShortUrl = async (req: Request, res: Response): Promise<voi
     try {
         const { shortUrl } = req.params
 
-        const findUrl = await Link.findOne({
-            newUrl: `http://squishlink/${shortUrl}`
-        })
+        const findUrl = await Link.findOneAndUpdate(
+            { newUrl: `http://squishlink/${shortUrl}` },
+            { $inc: { clicks: 1 } },
+            { new: true }
+        )
 
         if (!findUrl) {
             res.status(404).json({
