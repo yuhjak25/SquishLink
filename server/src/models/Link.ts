@@ -15,21 +15,11 @@ const linkSchema = new Schema(
         clicks: {
             type: Number,
             default: 0,
-        },
-        expireAfterSeconds: {
-            type: Number,
-            default: 1800
-        },
-        expireAt: {
-            type: Date,
-            default: function () {
-                return new Date(Date.now() + (this as any).expireAfterSeconds * 1000);
-            }
         }
     },
     { timestamps: true }
 );
 
-linkSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+linkSchema.index({ createdAt: 1 }, { expireAfterSeconds: 3600 });
 
 export default model("Link", linkSchema);
