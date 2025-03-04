@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose"
+import { model, Schema } from "mongoose";
 
 const linkSchema = new Schema(
     {
@@ -19,10 +19,17 @@ const linkSchema = new Schema(
         expireAfterSeconds: {
             type: Number,
             default: 1800
+        },
+        expireAt: {
+            type: Date,
+            default: function () {
+                return new Date(Date.now() + (this as any).expireAfterSeconds * 1000);
+            }
         }
     },
     { timestamps: true }
-)
+);
 
-linkSchema.index({ createdAt: 1 }, { expireAfterSeconds: 1800 })
-export default model("Link", linkSchema)
+linkSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+
+export default model("Link", linkSchema);
