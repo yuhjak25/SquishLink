@@ -23,8 +23,9 @@ function App() {
         <ul className="p-4 space-y-4">
           {links.map((link) => (
             <li
-              key={link.id}
-              className="border border-zinc-700 p-4 ring-1 ring-yellow-300/30 shadow-lg shadow-yellow-300/40 rounded-lg">
+              key={link._id}
+              className="border border-zinc-700 p-4 ring-1 ring-yellow-300/30 shadow-lg shadow-yellow-300/40 rounded-lg
+                         transition-all duration-500 ease-in-out opacity-100 scale-100">
               <p className="text-zinc-100">Original link - {link.oldUrl} </p>
               <p className="text-zinc-100">
                 Link squish -{' '}
@@ -41,7 +42,9 @@ function App() {
           ))}
         </ul>
       ) : (
-        <p className="text-zinc-100 p-4">No hay enlaces disponibles</p>
+        <p className="text-zinc-100 p-4">
+          There are no links available to show.
+        </p>
       )}
     </div>
   )
