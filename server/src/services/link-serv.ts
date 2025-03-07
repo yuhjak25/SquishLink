@@ -15,6 +15,17 @@ const createLink = async (req: Request, res: Response): Promise<void> => {
 
         const newLinkData = `https://squishlink/${nanoid(6)}`
 
+        const findLink = await Link.findOne({
+            userLink: linkData
+        })
+
+        if (findLink) {
+            res.status(400).json({
+                error: 'This link already exists.'
+            })
+            return
+        }
+
         const newLink = new Link({
             userLink: linkData,
             createdLink: newLinkData

@@ -4,6 +4,7 @@ const linkSchema = new Schema(
     {
         userLink: {
             type: String,
+            unique: true,
             required: true,
             trim: true
         },
