@@ -1,4 +1,6 @@
 import type { Request, Response } from 'express'
+import Link from '../models/Link'
+import { nanoid } from 'nanoid'
 
 const createLink = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -11,8 +13,17 @@ const createLink = async (req: Request, res: Response): Promise<void> => {
             return
         }
 
-        res.json({ message: 'Succesfully created your link.' })
+        const newLinkData = `https://squishlink/${nanoid(6)}`
 
+        const newLink = new Link({
+            userLink: linkData,
+            createdLink: newLinkData
+        })
+
+        await newLink.save()
+        res.status(200).json({
+            message: 'Your link was created successfully.'
+        })
     } catch (e) {
         res.status(500).json({
             error: 'A server error ocurred: Failed to create the link.'
@@ -20,3 +31,5 @@ const createLink = async (req: Request, res: Response): Promise<void> => {
         console.log('Error:', e)
     }
 }
+
+export default createLink
