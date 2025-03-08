@@ -6,15 +6,9 @@ export const loadLinks = async (_req: Request, res: Response): Promise<void> => 
     try {
         const linksData = await Link.find({})
 
-        if (linksData.length === 0) {
-            res.json({
-                message: 'There are no links.'
-            })
-        } else {
-            res.json({
-                linksData
-            })
-        }
+        res.json({
+            linksData: linksData.length === 0 ? [] : linksData,
+        })
     } catch (e) {
         res.status(500).json({
             error: 'A server error occurred: Failed to load the links.'

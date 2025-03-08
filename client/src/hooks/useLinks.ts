@@ -7,8 +7,8 @@ const useLinks = () => {
 
     const getFetchedLinks = async () => {
         try {
-            const res = await getLinks()
-            dispatch(setLinks(res))
+            const links = await getLinks()
+            dispatch(setLinks(links))
         } catch (error) {
             console.error("Error fetching links:", error)
         }

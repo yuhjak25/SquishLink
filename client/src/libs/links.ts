@@ -8,7 +8,10 @@ const linkSlice = createSlice({
     initialState,
     reducers: {
         setLinks: (_state, action: PayloadAction<Links[]>) => {
-            return action.payload
+            if (Array.isArray(action.payload)) {
+                return action.payload
+            }
+            return []
         }
     }
 })
