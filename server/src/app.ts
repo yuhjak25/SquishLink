@@ -9,6 +9,9 @@ app
     .use(express.json())
     .use(cors())
     .use(methodLogger)
+    .get('/', (req, res) => {
+        res.json('Bienvenido a la api de SquishLink')
+    })
     .use('/api/links', linkRoutes)
 
 export default app

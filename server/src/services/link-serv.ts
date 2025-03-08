@@ -2,7 +2,28 @@ import type { Request, Response } from 'express'
 import Link from '../models/Link'
 import { nanoid } from 'nanoid'
 
-const createLink = async (req: Request, res: Response): Promise<void> => {
+export const loadLinks = async (_req: Request, res: Response): Promise<void> => {
+    try {
+        const linksData = await Link.find({})
+
+        if (linksData.length === 0) {
+            res.json({
+                message: 'There are no links.'
+            })
+        } else {
+            res.json({
+                linksData
+            })
+        }
+    } catch (e) {
+        res.status(500).json({
+            error: 'A server error occurred: Failed to load the links.'
+        })
+        console.log('Error:', e)
+    }
+}
+
+export const createLink = async (req: Request, res: Response): Promise<void> => {
     try {
         const { linkData } = req.body
 
@@ -43,4 +64,3 @@ const createLink = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-export default createLink
