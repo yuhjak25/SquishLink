@@ -1,19 +1,15 @@
 import { url } from "../constants"
 
-const getLinks = () => {
+export const getLinks = async () => {
     try {
-        fetch(`${url}/`).then((res) => {
-            if (!res.ok) {
-                console.log('Error fetching the links.')
-            } else {
-                console.log(res)
-            }
-        })
+        const res = await fetch(`${url}/`)
+        if (!res.ok) {
+            throw new Error("Error fetching the links.")
+        }
+        const data = await res.json()
+        return data
     } catch (e) {
-        console.log('Error fetching the links.', e)
+        console.error("Error fetching the links:", e)
+        return []
     }
-}
-
-export default {
-    getLinks
 }
