@@ -20,6 +20,7 @@ export const loadLinks = async (_req: Request, res: Response): Promise<void> => 
             error: 'A server error occurred: Failed to load the links.'
         })
         console.log('Error:', e)
+        return
     }
 }
 
@@ -36,31 +37,43 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
 
         const newLinkData = `https://squishlink/${nanoid(6)}`
 
-        const findLink = await Link.findOne({
+        const totalLinks = await Link.countDocuments({
             userLink: linkData
         })
 
-        if (findLink) {
+        if (totalLinks >= 30) {
             res.status(400).json({
-                error: 'This link already exists.'
+                error: 'You cannot have more than 30 links.'
             })
             return
+        } else {
+            const findLink = await Link.findOne({
+                userLink: linkData
+            })
+
+            if (findLink) {
+                res.status(400).json({
+                    error: 'This link already exists.'
+                })
+                return
+            }
+
+            const newLink = new Link({
+                userLink: linkData,
+                createdLink: newLinkData
+            })
+
+            await newLink.save()
+            res.status(200).json({
+                message: 'Your link was created successfully.'
+            })
         }
-
-        const newLink = new Link({
-            userLink: linkData,
-            createdLink: newLinkData
-        })
-
-        await newLink.save()
-        res.status(200).json({
-            message: 'Your link was created successfully.'
-        })
     } catch (e) {
         res.status(500).json({
             error: 'A server error ocurred: Failed to create the link.'
         })
         console.log('Error:', e)
+        return
     }
 }
 
@@ -80,6 +93,7 @@ export const deleteLink = async (req: Request, res: Response): Promise<void> => 
             res.status(404).json({
                 error: 'Link not found.'
             })
+            return
         } else {
             res.status(200).json({
                 message: 'Successfully deleted the link.'
@@ -91,5 +105,6 @@ export const deleteLink = async (req: Request, res: Response): Promise<void> => 
             error: 'A server error ocurred: Failed to delete the link.'
         })
         console.log('Error:', e)
+        return
     }
 }
