@@ -20,7 +20,6 @@ export const loadLinks = async (_req: Request, res: Response): Promise<void> => 
             error: 'A server error occurred: Failed to load the links.'
         })
         console.log('Error:', e)
-        return
     }
 }
 
@@ -35,39 +34,38 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
             return
         }
 
+        const totalLinks = await Link.countDocuments({})
+
+        if (totalLinks >= 15) {
+            res.status(400).json({
+                error: 'You cannot have more than 15 links.'
+            })
+            return
+        }
+
         const newLinkData = `https://squishlink/${nanoid(6)}`
 
-        const totalLinks = await Link.countDocuments({
+        const findLink = await Link.findOne({
             userLink: linkData
         })
 
-        if (totalLinks >= 30) {
+        if (findLink) {
             res.status(400).json({
-                error: 'You cannot have more than 30 links.'
+                error: 'This link already exists.'
             })
             return
-        } else {
-            const findLink = await Link.findOne({
-                userLink: linkData
-            })
-
-            if (findLink) {
-                res.status(400).json({
-                    error: 'This link already exists.'
-                })
-                return
-            }
-
-            const newLink = new Link({
-                userLink: linkData,
-                createdLink: newLinkData
-            })
-
-            await newLink.save()
-            res.status(200).json({
-                message: 'Your link was created successfully.'
-            })
         }
+
+        const newLink = new Link({
+            userLink: linkData,
+            createdLink: newLinkData
+        })
+
+        await newLink.save()
+        res.status(200).json({
+            message: 'Your link was created successfully.'
+        })
+
     } catch (e) {
         res.status(500).json({
             error: 'A server error ocurred: Failed to create the link.'
