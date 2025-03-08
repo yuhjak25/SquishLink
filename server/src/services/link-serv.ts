@@ -64,3 +64,32 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
     }
 }
 
+export const deleteLink = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params
+        if (!id) {
+            res.status(400).json({
+                error: 'Missing id or not found'
+            })
+            return
+        }
+
+        const findLinkById = await Link.findByIdAndDelete(id)
+
+        if (!findLinkById) {
+            res.status(404).json({
+                error: 'Link not found.'
+            })
+        } else {
+            res.status(200).json({
+                message: 'Successfully deleted the link.'
+            })
+        }
+
+    } catch (e) {
+        res.status(500).json({
+            error: 'A server error ocurred: Failed to delete the link.'
+        })
+        console.log('Error:', e)
+    }
+}
