@@ -4,7 +4,7 @@ import useLinks from './hooks/useLinks'
 import { Links } from './types'
 
 function App() {
-  const { links, fetchLinks } = useLinks()
+  const { links } = useLinks()
   const { createLinks, delLink } = useActionLinks()
 
   const [formData, setFormData] = useState<Links>({
@@ -22,7 +22,6 @@ function App() {
         _id: '',
         userLink: '',
       })
-      await fetchLinks()
     } catch (e) {
       console.error('Error creating your link:', e)
     }

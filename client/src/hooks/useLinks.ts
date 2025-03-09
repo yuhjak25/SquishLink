@@ -7,24 +7,25 @@ const useLinks = () => {
     const dispatch = useAppDispatch()
     const links = useAppSelector((state) => state.links)
 
-    const fetchLinks = async () => {
-        try {
-            const res = await fetch(`${url}`)
-            if (!res.ok) {
-                throw new Error("Error fetching the links.")
-            }
-            const data = await res.json()
-            dispatch(setLinks(data))
-        } catch (e) {
-            console.error("Error fetching the links:", e)
-        }
-    }
-
     useEffect(() => {
+        const fetchLinks = async () => {
+            try {
+                const res = await fetch(`${url}`)
+                if (!res.ok) {
+                    throw new Error("Error fetching the links.")
+                }
+                const data = await res.json()
+                dispatch(setLinks(data))
+            } catch (e) {
+                console.error("Error fetching the links:", e)
+            }
+        }
+
         fetchLinks()
     }, [dispatch])
 
-    return { links, fetchLinks }
+
+    return { links }
 }
 
 export default useLinks
