@@ -54,9 +54,7 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
         })
 
         await newLink.save()
-        res.status(200).json({
-            message: 'Your link was created successfully.'
-        })
+        res.status(200).json(newLink)
 
     } catch (e) {
         res.status(500).json({

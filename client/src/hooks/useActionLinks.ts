@@ -23,7 +23,7 @@ const useActionLinks = () => {
             const data = await res.json()
             dispatch(addLink(data))
         } catch (e) {
-            console.error("Error creating the links:", e)
+            console.error("Error creating the link:", e)
         }
     }
 

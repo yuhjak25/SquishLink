@@ -5,7 +5,7 @@ import { Links } from './types'
 
 function App() {
   const { links, fetchLinks } = useLinks()
-  const { createLinks } = useActionLinks()
+  const { createLinks, delLink } = useActionLinks()
 
   const [formData, setFormData] = useState<Links>({
     _id: '',
@@ -49,7 +49,9 @@ function App() {
           {links.map((link) => (
             <li className='text-black' key={link._id}>
               {link.userLink} - {link.createdLink}
-              <button></button>
+              <button className='text-black' onClick={() => delLink(link._id)}>
+                Delete
+              </button>
             </li>
           ))}
         </ul>
