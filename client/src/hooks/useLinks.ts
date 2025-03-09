@@ -1,20 +1,32 @@
+import { useEffect } from "react"
 import { setLinks } from "../libs/links"
-import { getLinks } from "../services/fetchLinks"
 import { useAppDispatch } from "./useStore"
+import { url } from "../constants"
 
 const useLinks = () => {
     const dispatch = useAppDispatch()
 
-    const getFetchedLinks = async () => {
-        try {
-            const links = await getLinks()
-            dispatch(setLinks(links))
-        } catch (error) {
-            console.error("Error fetching links:", error)
+    useEffect(() => {
+        const fetchLinks = async () => {
+            try {
+                const res = await fetch(`${url}`)
+                if (!res.ok) {
+                    throw new Error("Error fetching the links.")
+                }
+                const data = await res.json()
+                dispatch(setLinks(data))
+                console.log(data)
+                return data
+            } catch (e) {
+                console.error("Error fetching the links:", e)
+                return []
+            }
         }
-    }
 
-    return { getFetchedLinks }
+        fetchLinks()
+    }, [dispatch])
+
+    return {}
 }
 
 export default useLinks

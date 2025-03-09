@@ -4,11 +4,9 @@ import { nanoid } from 'nanoid'
 
 export const loadLinks = async (_req: Request, res: Response): Promise<void> => {
     try {
-        const linksData = await Link.find({})
+        const links = await Link.find({})
 
-        res.json({
-            linksData: linksData.length === 0 ? [] : linksData,
-        })
+        res.json(links)
     } catch (e) {
         res.status(500).json({
             error: 'A server error occurred: Failed to load the links.'
@@ -19,9 +17,9 @@ export const loadLinks = async (_req: Request, res: Response): Promise<void> => 
 
 export const createLink = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { linkData } = req.body
+        const { userLink } = req.body
 
-        if (!linkData) {
+        if (!userLink) {
             res.status(400).json({
                 error: 'Missing link data.'
             })
@@ -40,7 +38,7 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
         const newLinkData = `https://squishlink/${nanoid(6)}`
 
         const findLink = await Link.findOne({
-            userLink: linkData
+            userLink
         })
 
         if (findLink) {
@@ -51,7 +49,7 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
         }
 
         const newLink = new Link({
-            userLink: linkData,
+            userLink,
             createdLink: newLinkData
         })
 
