@@ -12,9 +12,12 @@ const linkSlice = createSlice({
                 return action.payload
             }
             return []
+        },
+        addLinks: (state, action: PayloadAction<Links>) => {
+            state.push(action.payload)
         }
     }
 })
 
-export const { setLinks } = linkSlice.actions
+export const { setLinks, addLinks } = linkSlice.actions
 export default linkSlice.reducer

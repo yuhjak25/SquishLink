@@ -1,6 +1,6 @@
 import { useEffect } from "react"
-import { setLinks } from "../libs/links"
 import { useAppDispatch, useAppSelector } from "./useStore"
+import { setLinks } from "../libs/links"
 import { url } from "../constants"
 
 const useLinks = () => {
@@ -16,7 +16,6 @@ const useLinks = () => {
                 }
                 const data = await res.json()
                 dispatch(setLinks(data))
-                console.log("Fetched Data:", data)
             } catch (e) {
                 console.error("Error fetching the links:", e)
             }
