@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
-import links from '../libs/links'
+import linkReducer from '../libs/links'
 
 export const store = configureStore({
     reducer: {
-        links
+        links: linkReducer
     }
 })
 

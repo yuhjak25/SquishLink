@@ -1,11 +1,7 @@
 import useLinks from './hooks/useLinks'
-import { useAppSelector } from './hooks/useStore'
 
 function App() {
-  const links = useAppSelector((state) => state.links)
-
-  useLinks()
-
+  const { links } = useLinks()
   return (
     <div>
       <h1>SquishLink</h1>
@@ -14,7 +10,9 @@ function App() {
       ) : (
         <ul>
           {links.map((link) => (
-            <li key={link._id}>{link.linkData}</li>
+            <li className='text-black' key={link._id}>
+              {link.userLink} - {link.createdLink}
+            </li>
           ))}
         </ul>
       )}

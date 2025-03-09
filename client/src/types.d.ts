@@ -1,4 +1,5 @@
 export type Links = {
     _id: string,
-    linkData: string
+    userLink: string,
+    createdLink?: string,
 }
