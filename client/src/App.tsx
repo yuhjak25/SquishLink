@@ -4,7 +4,7 @@ import useLinks from './hooks/useLinks'
 import { Links } from './types'
 
 function App() {
-  const { links } = useLinks()
+  const { links, fetchLinks } = useLinks()
   const { createLinks } = useActionLinks()
 
   const [formData, setFormData] = useState<Links>({
@@ -17,10 +17,12 @@ function App() {
 
     try {
       await createLinks(formData)
+
       setFormData({
         _id: '',
         userLink: '',
       })
+      await fetchLinks()
     } catch (e) {
       console.error('Error creating your link:', e)
     }
@@ -38,6 +40,7 @@ function App() {
             setFormData({ ...formData, userLink: e.target.value })
           }
         />
+        <button type='submit'>Submit</button>
       </form>
       {links.length === 0 ? (
         <p>There are no links existing.</p>
@@ -46,6 +49,7 @@ function App() {
           {links.map((link) => (
             <li className='text-black' key={link._id}>
               {link.userLink} - {link.createdLink}
+              <button></button>
             </li>
           ))}
         </ul>
