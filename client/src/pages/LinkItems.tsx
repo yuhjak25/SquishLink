@@ -1,4 +1,3 @@
-// import { toast } from '@pheralb/toast'
 import { Links } from '../types'
 
 type LinkItemsProps = {
