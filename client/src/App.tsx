@@ -3,8 +3,8 @@ import FormData from './pages/FormData'
 
 function App() {
   return (
-    <div>
-      <h1>SquishLink</h1>
+    <div className='bg-eerie min-h-screen'>
+      <h1 className=''>SquishLink</h1>
       <FormData />
       <LinkList />
     </div>
