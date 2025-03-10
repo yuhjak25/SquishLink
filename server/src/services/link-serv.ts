@@ -82,11 +82,12 @@ export const deleteLink = async (req: Request, res: Response): Promise<void> => 
                 error: 'Link not found.'
             })
             return
-        } else {
-            res.status(200).json({
-                message: 'Successfully deleted the link.'
-            })
         }
+
+        res.status(200).json({
+            message: 'Successfully deleted the link.'
+        })
+
 
     } catch (e) {
         res.status(500).json({

@@ -18,6 +18,7 @@ const useLinks = () => {
                 }
                 const data = await res.json()
                 dispatch(setLinks(data))
+                console.log(data)
             } catch (e) {
                 console.error("Error fetching the links:", e)
             } finally {

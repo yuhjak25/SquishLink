@@ -34,21 +34,19 @@ const useActionLinks = () => {
 
     const delLink = async (id: string) => {
         dispatch(setLoading(true))
+
         try {
             const res = await fetch(`${url}/${id}`, {
                 method: "DELETE",
-                headers: {
-                    'Content-Type': "application/json"
-                }
             })
 
             if (!res.ok) {
                 throw new Error("Error deleting the link.")
             }
 
-            dispatch(deleteLink({ id }))
+            return dispatch(deleteLink({ id }))
         } catch (e) {
-            console.error("Error deleting the links:", e)
+            console.error("Error deleting the link:", e)
         } finally {
             dispatch(setLoading(false))
         }

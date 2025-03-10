@@ -8,9 +8,10 @@ function LinkList() {
   const { delLink } = useActionLinks()
   const loading = useAppSelector((state) => state.handle.loading)
 
-  if (loading) return <p>LOADING...</p>
+  if (loading) return <p className='text-white'>LOADING...</p>
 
-  if (!links.length) return <p>There are no links existing.</p>
+  if (!links.length)
+    return <p className='text-white'>There are no links existing.</p>
 
   return (
     <ul>

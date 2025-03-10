@@ -20,7 +20,7 @@ const linkSlice = createSlice({
         },
         deleteLink: (state, action: PayloadAction<{ id: string }>) => {
             const { id } = action.payload
-            state.filter(link => link._id !== id)
+            return state.filter(link => link._id !== id)
         },
     }
 })

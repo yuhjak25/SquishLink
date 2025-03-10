@@ -1,3 +1,4 @@
+// import { toast } from '@pheralb/toast'
 import { Links } from '../types'
 
 type LinkItemsProps = {
@@ -7,9 +8,9 @@ type LinkItemsProps = {
 
 function LinkItems({ link, onDelete }: LinkItemsProps) {
   return (
-    <li className='text-black'>
+    <li className='text-white'>
       {link.userLink} - {link.createdLink}
-      <button className='text-black' onClick={() => onDelete(link._id)}>
+      <button className='text-white' onClick={() => onDelete(link._id)}>
         Delete
       </button>
     </li>
