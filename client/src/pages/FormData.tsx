@@ -4,7 +4,6 @@ import useActionLinks from '../hooks/useActionLinks'
 
 function FormData() {
   const { createLinks } = useActionLinks()
-
   const [formData, setFormData] = useState<Links>({ _id: '', userLink: '' })
 
   const onLinkSubmit = async (e: React.SyntheticEvent) => {
