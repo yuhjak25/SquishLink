@@ -17,7 +17,7 @@ export const loadLinks = async (_req: Request, res: Response): Promise<void> => 
 
 export const createLink = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { userLink } = req.body
+        const { userLink, customLink } = req.body
 
         if (!userLink) {
             res.status(400).json({
@@ -26,16 +26,13 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
             return
         }
 
-        const totalLinks = await Link.countDocuments({})
+        const createdLink = customLink ? `https://squishlink/${customLink}` : `https://squishlink/${nanoid(6)}`
 
-        if (totalLinks >= 15) {
-            res.status(400).json({
-                error: 'You cannot have more than 15 links.'
-            })
+        const existingCustomLink = await Link.findOne({ createdLink })
+        if (existingCustomLink) {
+            res.status(400).json({ error: 'Custom link already in use.' })
             return
         }
-
-        const newLinkData = `https://squishlink/${nanoid(6)}`
 
         const findLink = await Link.findOne({
             userLink
@@ -50,7 +47,7 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
 
         const newLink = new Link({
             userLink,
-            createdLink: newLinkData
+            createdLink
         })
 
         await newLink.save()

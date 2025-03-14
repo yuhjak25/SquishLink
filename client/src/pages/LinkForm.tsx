@@ -4,7 +4,11 @@ import useActionLinks from '../hooks/useActionLinks'
 
 function LinkForm() {
   const { createLinks } = useActionLinks()
-  const [formData, setFormData] = useState<Links>({ _id: '', userLink: '' })
+  const [formData, setFormData] = useState<Links>({
+    _id: '',
+    userLink: '',
+    createdLink: '',
+  })
 
   const onLinkSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -15,6 +19,7 @@ function LinkForm() {
       setFormData({
         _id: '',
         userLink: '',
+        createdLink: '',
       })
     } catch (e) {
       console.error('Error creating your link:', e)
@@ -33,6 +38,17 @@ function LinkForm() {
           placeholder='Insert your link'
           onChange={(e) =>
             setFormData({ ...formData, userLink: e.target.value })
+          }
+          className='border border-gray-500 rounded-md bg-eerie-black text-white placeholder-gray-400 px-0.5 py-0.75
+          transition delay-150 duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5
+          focus:ring-vista'
+        />
+        <input
+          type='text'
+          value={formData.createdLink}
+          placeholder='Insert your custom end link'
+          onChange={(e) =>
+            setFormData({ ...formData, createdLink: e.target.value })
           }
           className='border border-gray-500 rounded-md bg-eerie-black text-white placeholder-gray-400 px-0.5 py-0.75
           transition delay-150 duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5
