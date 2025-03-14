@@ -1,11 +1,11 @@
 import LinkList from './pages/LinkList'
-import FormData from './pages/FormData'
+import LinkForm from './pages/LinkForm'
 
 function App() {
   return (
-    <div className='bg-eerie min-h-screen'>
-      <h1 className=''>SquishLink</h1>
-      <FormData />
+    <div className='h-screen flex flex-col items-center pt-50 bg-eerie'>
+      <h1 className='text-white text-2xl font-semibold '>SquishLink</h1>
+      <LinkForm />
       <LinkList />
     </div>
   )

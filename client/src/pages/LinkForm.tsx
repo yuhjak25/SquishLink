@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Links } from '../types'
 import useActionLinks from '../hooks/useActionLinks'
 
-function FormData() {
+function LinkForm() {
   const { createLinks } = useActionLinks()
   const [formData, setFormData] = useState<Links>({ _id: '', userLink: '' })
 
@@ -22,7 +22,10 @@ function FormData() {
   }
   return (
     <>
-      <form onSubmit={onLinkSubmit} className='flex gap-2 p-4'>
+      <form
+        onSubmit={onLinkSubmit}
+        className='flex items-center justify-center gap-2 p-4'
+      >
         <input
           type='text'
           required
@@ -31,12 +34,12 @@ function FormData() {
           onChange={(e) =>
             setFormData({ ...formData, userLink: e.target.value })
           }
-          className='border border-gray-500 rounded-md bg-eerie-black text-white placeholder-gray-400 px-0.5
-          transition duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5
-          focus:ring-persian'
+          className='border border-gray-500 rounded-md bg-eerie-black text-white placeholder-gray-400 px-0.5 py-0.75
+          transition delay-150 duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5
+          focus:ring-vista'
         />
         <button
-          className='text-gray-400 font-semibold border border-gray-500 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer p-0.75 hover:text-white hover:-translate-y-1 hover:bg-persian hover:scale-105 hover:border-transparent'
+          className='text-white font-semibold border border-gray-500 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer p-0.75 hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
           type='submit'
         >
           Submit
@@ -46,4 +49,4 @@ function FormData() {
   )
 }
 
-export default FormData
+export default LinkForm
