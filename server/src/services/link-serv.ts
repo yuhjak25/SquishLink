@@ -17,7 +17,7 @@ export const loadLinks = async (_req: Request, res: Response): Promise<void> => 
 
 export const createLink = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { userLink, customLink } = req.body
+        const { userLink, createdLink } = req.body
 
         if (!userLink) {
             res.status(400).json({
@@ -26,17 +26,11 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
             return
         }
 
-        const createdLink = customLink ? `https://squishlink/${customLink}` : `https://squishlink/${nanoid(6)}`
-
-        const existingCustomLink = await Link.findOne({ createdLink })
-        if (existingCustomLink) {
-            res.status(400).json({ error: 'Custom link already in use.' })
-            return
-        }
-
         const findLink = await Link.findOne({
             userLink
         })
+
+        const finalLink = createdLink ? `https://squishlink/${createdLink}` : `https://squishlink/${nanoid(6)}`
 
         if (findLink) {
             res.status(400).json({
@@ -45,14 +39,22 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
             return
         }
 
+        if (createdLink) {
+            const existingCustomLink = await Link.findOne({ createdLink: `https://squishlink/${createdLink}` })
+            if (existingCustomLink) {
+                res.status(400).json({ error: 'This custom link is already taken.' })
+                return
+            }
+        }
+
         const newLink = new Link({
             userLink,
-            createdLink
+            createdLink: finalLink
         })
 
         await newLink.save()
+        console.log(newLink)
         res.status(200).json(newLink)
-
     } catch (e) {
         res.status(500).json({
             error: 'A server error ocurred: Failed to create the link.'

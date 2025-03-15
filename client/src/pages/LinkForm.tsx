@@ -13,6 +13,8 @@ function LinkForm() {
   const onLinkSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
+    console.log('Form data before sending:', formData)
+
     try {
       await createLinks(formData)
 
@@ -48,7 +50,10 @@ function LinkForm() {
           value={formData.createdLink}
           placeholder='Insert your custom end link'
           onChange={(e) =>
-            setFormData({ ...formData, createdLink: e.target.value })
+            setFormData({
+              ...formData,
+              createdLink: e.target.value || undefined,
+            })
           }
           className='border border-gray-500 rounded-md bg-eerie-black text-white placeholder-gray-400 px-0.5 py-0.75
           transition delay-150 duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5

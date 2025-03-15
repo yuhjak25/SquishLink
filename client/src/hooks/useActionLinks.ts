@@ -10,6 +10,9 @@ const useActionLinks = () => {
 
     const createLinks = async (links: Links) => {
         dispatch(setLoading(true))
+
+        console.log("Sending data:", links)
+
         try {
             const res = await fetch(`${url}/create-link`, {
                 method: 'POST',
@@ -24,6 +27,7 @@ const useActionLinks = () => {
             }
 
             const data = await res.json()
+            console.log(data)
             dispatch(addLink(data))
         } catch (e) {
             console.error("Error creating the link:", e)
