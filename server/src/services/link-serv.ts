@@ -109,15 +109,14 @@ export const updateLink = async (req: Request, res: Response): Promise<void> => 
             })
             return
         }
+        const finalLink = `https://squishlink/${createdLink}`
 
-        const updatedLink = await Link.findByIdAndUpdate(id, { createdLink }, { new: true })
+        const updatedLink = await Link.findByIdAndUpdate(id, { createdLink: finalLink }, { new: true })
 
         if (!updatedLink) {
             res.status(404).json({ error: 'Link not found.' })
             return
         }
-
-        const finalLink = `https://squishlink/${updatedLink.createdLink}`
 
         res.status(200).json({
             message: 'Successfully updated the link.',
