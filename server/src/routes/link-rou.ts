@@ -1,7 +1,7 @@
 import express from 'express'
 import { createLink, deleteLink, loadLinks, updateLink } from '../services/link-serv'
 import { zValidator } from '../middleware/zValidator'
-import { linkSchema } from '../schema/linkSchema'
+import { linkSchema, updateLinkSchema } from '../schema/linkSchema'
 const linkRoutes = express.Router()
 
 linkRoutes
@@ -14,7 +14,7 @@ linkRoutes
     .delete('/:id', async (req, res) => {
         return await deleteLink(req, res)
     })
-    .put('/:id', async (req, res) => {
+    .put('/:id', zValidator(updateLinkSchema), async (req, res) => {
         return await updateLink(req, res)
     })
 

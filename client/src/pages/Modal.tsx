@@ -32,14 +32,17 @@ function Modal({ link }: ModalProps) {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>
+      <button
+        onClick={() => setIsOpen(true)}
+        className='text-white transition delay-150 ease-in-out cursor-pointer hover:text-vista hover:scale-105'
+      >
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='size-6'
+          className='size-4'
         >
           <path
             strokeLinecap='round'
@@ -52,13 +55,36 @@ function Modal({ link }: ModalProps) {
         <form onSubmit={onUpdateLinkSubmit}>
           <input
             type='text'
-            value={updateLink}
+            placeholder={updateLink}
             onChange={(e) => {
               setUpdatedLink(e.target.value)
             }}
           />
-          <button type='submit'>Save</button>
-          <button onClick={() => setIsOpen(false)}>Cancel</button>
+          <button
+            type='submit'
+            className='text-white transition delay-150 ease-in-out cursor-pointer'
+          >
+            Save
+          </button>
+          <button
+            onClick={() => setIsOpen(false)}
+            className='text-white transition delay-150 ease-in-out cursor-pointer'
+          >
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='size-4'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+              />
+            </svg>
+          </button>
         </form>
       )}
     </>
