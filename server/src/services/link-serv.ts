@@ -18,6 +18,8 @@ export const loadLinks = async (_req: Request, res: Response): Promise<void> => 
 export const createLink = async (req: Request, res: Response): Promise<void> => {
     try {
         const { userLink, createdLink } = req.body
+        console.log("Request body:", req.body);
+
 
         if (!userLink) {
             res.status(400).json({
@@ -30,8 +32,6 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
             userLink
         })
 
-        const finalLink = createdLink ? `https://squishlink/${createdLink}` : `https://squishlink/${nanoid(6)}`
-
         if (findLink) {
             res.status(400).json({
                 error: 'This link already exists.'
@@ -41,11 +41,14 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
 
         if (createdLink) {
             const existingCustomLink = await Link.findOne({ createdLink: `https://squishlink/${createdLink}` })
+
             if (existingCustomLink) {
                 res.status(400).json({ error: 'This custom link is already taken.' })
                 return
             }
         }
+
+        const finalLink = createdLink ? `https://squishlink/${createdLink}` : `https://squishlink/${nanoid(6)}`
 
         const newLink = new Link({
             userLink,
@@ -86,11 +89,41 @@ export const deleteLink = async (req: Request, res: Response): Promise<void> => 
         res.status(200).json({
             message: 'Successfully deleted the link.'
         })
-
-
     } catch (e) {
         res.status(500).json({
             error: 'A server error ocurred: Failed to delete the link.'
+        })
+        console.log('Error:', e)
+        return
+    }
+}
+
+export const updateLink = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params
+        const { createdLink } = req.body
+
+        if (!id) {
+            res.status(400).json({
+                error: 'Missing id or not found'
+            })
+            return
+        }
+
+        const updatedLink = await Link.findByIdAndUpdate(id, { createdLink }, { new: true })
+
+        if (!updatedLink) {
+            res.status(404).json({ error: 'Link not found.' })
+            return
+        }
+
+        res.status(200).json({
+            message: 'Successfully updated the link.',
+            createdLink: updatedLink
+        })
+    } catch (e) {
+        res.status(500).json({
+            error: 'A server error ocurred: Failed to updated the link.'
         })
         console.log('Error:', e)
         return
