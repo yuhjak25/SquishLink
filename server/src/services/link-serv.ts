@@ -117,9 +117,11 @@ export const updateLink = async (req: Request, res: Response): Promise<void> => 
             return
         }
 
+        const finalLink = `https://squishlink/${updatedLink.createdLink}`
+
         res.status(200).json({
             message: 'Successfully updated the link.',
-            createdLink: updatedLink
+            createdLink: finalLink
         })
     } catch (e) {
         res.status(500).json({
