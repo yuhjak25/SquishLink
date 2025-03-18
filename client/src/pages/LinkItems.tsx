@@ -1,5 +1,4 @@
 import { Links } from '../types'
-import Modal from './Modal'
 
 type LinkItemsProps = {
   link: Links
@@ -21,7 +20,6 @@ function LinkItems({ link, onDelete }: LinkItemsProps) {
       >
         {link.createdLink}
       </a>
-      <Modal link={link} />
       <button
         onClick={() => onDelete(link._id)}
         className='text-white transition delay-150 ease-in-out cursor-pointer hover:text-persian hover:scale-105 hover:border-transparent'
