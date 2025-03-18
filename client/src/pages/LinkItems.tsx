@@ -8,7 +8,7 @@ type LinkItemsProps = {
 
 function LinkItems({ link, onDelete }: LinkItemsProps) {
   return (
-    <li className='text-white flex items-center justify-center gap-2 pl-4 transition-all '>
+    <li className='text-white flex items-center justify-center gap-2 pl-4 pt-2 transition-all '>
       <p className='text-zinc-300 overflow-hidden text-ellipsis'>
         {link.userLink}
       </p>{' '}
@@ -23,6 +23,7 @@ function LinkItems({ link, onDelete }: LinkItemsProps) {
       </a>
       <EditLinkForm link={link} />
       <button
+        title='Delete Link'
         onClick={() => onDelete(link._id)}
         className='text-white transition delay-150 ease-in-out cursor-pointer hover:text-persian hover:scale-105 hover:border-transparent'
       >

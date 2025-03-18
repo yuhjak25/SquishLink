@@ -17,7 +17,7 @@ function LinkList() {
 
   if (!links.length)
     return (
-      <div className='flex flex-col items-center justify-center h-40 text-center text-white transition-opacity delay-300 ease-in opacity-90'>
+      <div className='flex flex-col items-center justify-center p-4 text-center text-white transition-opacity delay-300 ease-in opacity-90'>
         <p className='text-lg font-medium'>No links available</p>
         <span className='text-sm text-vista'>Start by adding one!</span>
       </div>

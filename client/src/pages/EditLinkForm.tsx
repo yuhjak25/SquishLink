@@ -34,6 +34,7 @@ function EditLinkForm({ link }: EditLinks) {
   return (
     <>
       <button
+        title='Edit Link'
         onClick={() => setIsModalOpen(true)}
         className='text-white transition-all delay-150 ease-in-out cursor-pointer hover:text-vista hover:scale-105'
       >

@@ -32,7 +32,12 @@ function LinkForm() {
   }
   return (
     <>
-      <button onClick={() => setIsModalOpen(true)}>Create Link</button>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className='text-white font-semibold border border-gray-500 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer p-0.75 hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
+      >
+        Create Link
+      </button>
       <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
         <form
           onSubmit={onLinkSubmit}
