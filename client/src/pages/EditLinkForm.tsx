@@ -56,22 +56,22 @@ function EditLinkForm({ link }: EditLinks) {
       <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
         <form
           onSubmit={onUpdateLinkSubmit}
-          className='relative bg-eerie-black p-4 rounded-lg  flex flex-col gap-2'
+          className='flex flex-col gap-0.5 text-white relative p-1.5'
         >
+          <p className='text-gray-300 pb-0.5'>Edit link:</p>
           <input
             type='text'
-            placeholder='custom-link'
-            onChange={(e) => {
-              setUpdatedLink(e.target.value)
-            }}
             autoFocus
-            className='border border-gray-500 rounded-md bg-eerie-black text-white placeholder-gray-400 px-0.5 py-0.75 transition delay-150 duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5 focus:ring-vista'
+            placeholder='custom-link'
+            onChange={(e) => setUpdatedLink(e.target.value)}
+            className='border-1 border-zinc-700 rounded-md p-0.5 py-1 px-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
           />
+
           <button
             type='submit'
-            className='text-white font-semibold border border-gray-500 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer p-0.75 hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
+            className='self-end gap-1  text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer px-1 py-1 mt-2 text-sm hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
           >
-            Save
+            Submit
           </button>
         </form>
       </Modal>

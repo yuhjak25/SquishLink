@@ -32,7 +32,7 @@ function LinkList() {
         {links.length}/15
       </p>
 
-      <ul className='mt-6'>
+      <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
         {links.map((link) => (
           <LinkItems key={link._id} link={link} onDelete={delLink} />
         ))}
