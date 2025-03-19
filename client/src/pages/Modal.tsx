@@ -11,7 +11,7 @@ function Modal({ isOpen, setIsOpen, children }: ModalProps) {
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black/50 z-50'>
-      <div className='relative bg-eerie-black p-4 rounded-lg flex flex-col gap-2'>
+      <div className='relative bg-eerie-black p-4 rounded-lg gap-2'>
         <button
           type='button'
           onClick={() => setIsOpen(false)}

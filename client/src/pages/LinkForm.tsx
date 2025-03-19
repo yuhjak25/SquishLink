@@ -30,51 +30,57 @@ function LinkForm() {
       console.error('Error creating your link:', e)
     }
   }
+
   return (
     <>
       <button
         onClick={() => setIsModalOpen(true)}
-        className='text-white font-semibold border border-gray-500 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer p-0.75 hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
+        className='flex flex-row items-center gap-1 text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer p-1.5 text-sm hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
       >
-        Create Link
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth={1.5}
+          stroke='currentColor'
+          className='size-4'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='M12 4.5v15m7.5-7.5h-15'
+          />
+        </svg>
+        Add link
       </button>
       <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
         <form
           onSubmit={onLinkSubmit}
-          className='flex flex-col justify-center gap-2 p-4'
+          className='flex flex-col gap-0.5 text-white relative p-1.5'
         >
-          <h2 className='text-white text-sm'>Destination URL:</h2>
+          <p className='text-gray-300 pb-0.5'>Destination link:</p>
           <input
             type='text'
-            required
-            value={formData.userLink}
-            placeholder='https://'
             autoFocus
+            placeholder='https://'
+            required
             onChange={(e) =>
               setFormData({ ...formData, userLink: e.target.value })
             }
-            className='border border-gray-500 rounded-md bg-eerie-black text-white placeholder-gray-400 px-0.5 py-0.75
-          transition delay-150 duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5
-          focus:ring-vista'
+            className='border-1 border-zinc-700 rounded-md p-0.5 py-1 px-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
           />
-          <h2 className='text-white text-sm'>Custom link:</h2>
+          <p className='text-gray-300 pb-0.5'>Custom link:</p>
           <input
             type='text'
-            value={formData.createdLink}
             placeholder='custom-link'
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                createdLink: e.target.value,
-              })
-            }}
-            className='border border-gray-500 rounded-md bg-eerie-black text-white placeholder-gray-400 px-0.5 py-0.75
-          transition delay-150 duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5
-          focus:ring-vista'
+            onChange={(e) =>
+              setFormData({ ...formData, createdLink: e.target.value })
+            }
+            className='border-1 border-zinc-700 rounded-md p-0.5 py-1 px-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
           />
           <button
-            className='text-white font-semibold border border-gray-500 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer p-0.75 hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
             type='submit'
+            className='self-end gap-1  text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer px-1 py-1 mt-2 text-sm hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
           >
             Submit
           </button>
