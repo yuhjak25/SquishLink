@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type HandleState = {
     loading: boolean
-    error: null | Error
+    error: string | null
 }
 
 const initialState: HandleState = {
@@ -16,9 +16,13 @@ const handleSlice = createSlice({
     reducers: {
         setLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload
+        },
+        setError: (state, action: PayloadAction<string | null>) => {
+            state.error = action.payload
+            state.loading = false
         }
     }
 })
 
-export const { setLoading } = handleSlice.actions
+export const { setLoading, setError } = handleSlice.actions
 export default handleSlice.reducer

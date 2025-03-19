@@ -1,6 +1,6 @@
 import { useAppDispatch } from './useStore'
 import { addLink, deleteLink, updateLink } from '../libs/links'
-import { setLoading } from '../libs/handle'
+import { setError, setLoading } from '../libs/handle'
 import { Links } from '../types'
 import { url } from '../constants'
 
@@ -10,6 +10,7 @@ const useActionLinks = () => {
 
     const createLinks = async (links: Links) => {
         dispatch(setLoading(true))
+        dispatch(setError(null))
 
         console.log('Sending data:', links)
 
@@ -31,6 +32,7 @@ const useActionLinks = () => {
             dispatch(addLink(data))
         } catch (e) {
             console.error('Error creating the link:', e)
+            dispatch(setError(e instanceof Error ? e.message : 'unknown error'))
         } finally {
             dispatch(setLoading(false))
         }
@@ -38,6 +40,8 @@ const useActionLinks = () => {
 
     const delLink = async (id: string) => {
         dispatch(setLoading(true))
+        dispatch(setError(null))
+
 
         try {
             const res = await fetch(`${url}/${id}`, {
@@ -51,6 +55,7 @@ const useActionLinks = () => {
             return dispatch(deleteLink({ id }))
         } catch (e) {
             console.error('Error deleting the link:', e)
+            dispatch(setError(e instanceof Error ? e.message : 'unknown error'))
         } finally {
             dispatch(setLoading(false))
         }
@@ -58,6 +63,8 @@ const useActionLinks = () => {
 
     const updatedLink = async (id: string, createdLink: string) => {
         dispatch(setLoading(true))
+        dispatch(setError(null))
+
 
         try {
             const res = await fetch(`${url}/${id}`, {
@@ -77,6 +84,7 @@ const useActionLinks = () => {
             dispatch(updateLink({ id, createdLink: data.createdLink }))
         } catch (e) {
             console.error('Error updating the link:', e)
+            dispatch(setError(e instanceof Error ? e.message : 'unknown error'))
         } finally {
             dispatch(setLoading(false))
         }
