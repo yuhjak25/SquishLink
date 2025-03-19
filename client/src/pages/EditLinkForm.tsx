@@ -60,7 +60,7 @@ function EditLinkForm({ link }: EditLinks) {
         >
           <input
             type='text'
-            placeholder={updateLink}
+            placeholder='custom-link'
             onChange={(e) => {
               setUpdatedLink(e.target.value)
             }}

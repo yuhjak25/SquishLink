@@ -41,13 +41,14 @@ function LinkForm() {
       <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
         <form
           onSubmit={onLinkSubmit}
-          className='flex items-center justify-center gap-2 p-4'
+          className='flex flex-col justify-center gap-2 p-4'
         >
+          <h2 className='text-white text-sm'>Destination URL:</h2>
           <input
             type='text'
             required
             value={formData.userLink}
-            placeholder='Insert your link.'
+            placeholder='https://'
             autoFocus
             onChange={(e) =>
               setFormData({ ...formData, userLink: e.target.value })
@@ -56,10 +57,11 @@ function LinkForm() {
           transition delay-150 duration-300 ease-in-out focus:border-transparent focus:outline-none focus:ring-1.5
           focus:ring-vista'
           />
+          <h2 className='text-white text-sm'>Custom link:</h2>
           <input
             type='text'
             value={formData.createdLink}
-            placeholder='Custom end link.'
+            placeholder='custom-link'
             onChange={(e) => {
               setFormData({
                 ...formData,

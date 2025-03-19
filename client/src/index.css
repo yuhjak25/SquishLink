@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+:root {
+  background-color: #222;
+}
+
 @theme {
   --color-eerie: #222222;
   --color-eerie-black: #191716;
