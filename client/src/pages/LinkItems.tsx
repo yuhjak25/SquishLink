@@ -42,7 +42,13 @@ function LinkItems({ link, onDelete }: LinkItemsProps) {
           </button>
         </div>
       </div>
-      <p className='text-zinc-300 break-words'>{link.userLink}</p>
+      <p
+        className='text-zinc-300 break-words truncate max-w-[200px]'
+        title={link.userLink}
+      >
+        {link.userLink}
+      </p>
+
       <p className='text-zinc-300 text-xs self-end italic pt-2'>
         {link.createdAt
           ? new Date(link.createdAt).toLocaleDateString('es-ES')

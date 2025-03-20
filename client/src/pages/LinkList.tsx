@@ -27,11 +27,10 @@ function LinkList() {
     )
 
   return (
-    <div className='relative'>
-      <p className='absolute top-0 right-0 text-sm bg-vista/15 text-vista px-1 py-0.5 rounded-full'>
+    <div className='relative flex flex-col'>
+      <p className='text-vista bg-vista/50 rounded p-1 text-sm font-medium self-end mt-4'>
         {links.length}/15
       </p>
-
       <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
         {links.map((link) => (
           <LinkItems key={link._id} link={link} onDelete={delLink} />
