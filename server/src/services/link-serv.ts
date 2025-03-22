@@ -67,6 +67,36 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
     }
 }
 
+export const addCount = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params
+        if (!id) {
+            res.status(400).json({
+                error: 'Missing id or not found'
+            })
+        }
+
+        const findLinkById = await Link.findById(id)
+
+        if (!findLinkById) {
+            res.status(404).json({
+                error: 'Link not found.'
+            })
+            return
+        }
+
+        findLinkById.count += 1
+        await findLinkById.save()
+
+    } catch (e) {
+        res.status(500).json({
+            error: 'A server error ocurred: Failed to delete the link.'
+        })
+        console.log('Error:', e)
+        return
+    }
+}
+
 export const deleteLink = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params

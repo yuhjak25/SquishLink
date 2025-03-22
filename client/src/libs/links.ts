@@ -27,9 +27,17 @@ const linkSlice = createSlice({
             if (link) {
                 link.createdLink = action.payload.createdLink
             }
+        },
+        plusCount: (state, action: PayloadAction<{ id: string }>) => {
+            const link = state.find(link => link._id === action.payload.id)
+            if (link) {
+                if (link.count !== undefined) {
+                    link.count += 1
+                }
+            }
         }
     }
 })
 
-export const { setLinks, addLink, deleteLink, updateLink } = linkSlice.actions
+export const { setLinks, addLink, deleteLink, updateLink, plusCount } = linkSlice.actions
 export default linkSlice.reducer

@@ -12,6 +12,10 @@ const linkSchema = new Schema(
             type: String,
             unique: true,
             trim: true
+        },
+        count: {
+            type: Number,
+            default: 0
         }
     },
     { timestamps: true }

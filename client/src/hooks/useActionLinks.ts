@@ -1,5 +1,5 @@
 import { useAppDispatch } from './useStore'
-import { addLink, deleteLink, updateLink } from '../libs/links'
+import { addLink, deleteLink, plusCount, updateLink } from '../libs/links'
 import { setLoading } from '../libs/handle'
 import { Links } from '../types'
 import { url } from '../constants'
@@ -80,8 +80,32 @@ const useActionLinks = () => {
         }
     }
 
+    const addCount = async (id: string) => {
+        dispatch(setLoading(true))
+        try {
 
-    return { createLinks, delLink, updatedLink }
+            const res = await fetch(`${url}/add-count/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (!res.ok) {
+                throw new Error('Error adding count.')
+            }
+
+            const data = await res.json()
+            dispatch(plusCount(data))
+        } catch (e) {
+            console.error('Error adding count:', e)
+        } finally {
+            dispatch(setLoading(false))
+        }
+
+    }
+
+    return { createLinks, delLink, updatedLink, addCount }
 }
 
 export default useActionLinks

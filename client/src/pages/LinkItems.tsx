@@ -1,3 +1,4 @@
+import useActionLinks from '../hooks/useActionLinks'
 import { Links } from '../types'
 import EditLinkForm from './EditLinkForm'
 
@@ -7,6 +8,13 @@ type LinkItemsProps = {
 }
 
 function LinkItems({ link, onDelete }: LinkItemsProps) {
+  const { addCount } = useActionLinks()
+
+  const handleCount = () => {
+    if (link._id) {
+      addCount(link._id)
+    }
+  }
   return (
     <div className='flex flex-col bg-eerie-black border border-zinc-700 shadow-lg shadow-black/70 text-white p-4 gap-1 rounded-lg w-full max-w-xs sm:max-w-full'>
       <div className='flex flex-wrap justify-between items-start sm:items-center gap-2'>
@@ -14,6 +22,7 @@ function LinkItems({ link, onDelete }: LinkItemsProps) {
           rel='noopener noreferrer'
           target='_blank'
           href={link.createdLink}
+          onClick={handleCount}
           className='text-lg font-bold transition-all delay-250 ease-in-out break-words hover:underline hover:underline-offset-4 hover:underline-vista/80 hover:decoration-dotted hover:text-vista truncate max-w-[75%] sm:max-w-full'
         >
           {link.createdLink?.replace(/^https?:\/\/squishlink/, '')}
@@ -48,6 +57,8 @@ function LinkItems({ link, onDelete }: LinkItemsProps) {
       >
         {link.userLink}
       </p>
+
+      <p>{link.count} visitas</p>
 
       <p className='text-zinc-300 text-xs self-end italic pt-2'>
         {link.createdAt
