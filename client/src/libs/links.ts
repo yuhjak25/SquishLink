@@ -28,12 +28,10 @@ const linkSlice = createSlice({
                 link.createdLink = action.payload.createdLink
             }
         },
-        plusCount: (state, action: PayloadAction<{ id: string }>) => {
+        plusCount: (state, action: PayloadAction<{ id: string, count: number }>) => {
             const link = state.find(link => link._id === action.payload.id)
             if (link) {
-                if (link.count !== undefined) {
-                    link.count += 1
-                }
+                link.count = action.payload.count
             }
         }
     }

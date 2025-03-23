@@ -87,7 +87,7 @@ const useActionLinks = () => {
             const res = await fetch(`${url}/add-count/${id}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 }
             })
 

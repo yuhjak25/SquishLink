@@ -74,6 +74,7 @@ export const addCount = async (req: Request, res: Response): Promise<void> => {
             res.status(400).json({
                 error: 'Missing id or not found'
             })
+            return
         }
 
         const findLinkById = await Link.findById(id)
@@ -87,7 +88,10 @@ export const addCount = async (req: Request, res: Response): Promise<void> => {
 
         findLinkById.count += 1
         await findLinkById.save()
-
+        res.json({
+            id: findLinkById._id,
+            count: findLinkById.count
+        })
     } catch (e) {
         res.status(500).json({
             error: 'A server error ocurred: Failed to delete the link.'
