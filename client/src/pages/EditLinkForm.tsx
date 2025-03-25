@@ -7,7 +7,7 @@ type EditLinks = {
   link: Links
 }
 
-function EditLinkForm({ link }: EditLinks) {
+function EditLink({ link }: EditLinks) {
   const { updatedLink } = useActionLinks()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [updateLink, setUpdatedLink] = useState(link.createdLink ?? '')
@@ -44,7 +44,7 @@ function EditLinkForm({ link }: EditLinks) {
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='size-4'
+          className='size-5.25'
         >
           <path
             strokeLinecap='round'
@@ -79,4 +79,4 @@ function EditLinkForm({ link }: EditLinks) {
   )
 }
 
-export default EditLinkForm
+export default EditLink

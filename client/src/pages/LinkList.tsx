@@ -1,11 +1,9 @@
 import LinkItems from './LinkItems'
-import useActionLinks from '../hooks/useActionLinks'
 import useLinks from '../hooks/useLinks'
 import { useAppSelector } from '../hooks/useStore'
 
 function LinkList() {
   const { links } = useLinks()
-  const { delLink } = useActionLinks()
   const loading = useAppSelector((state) => state.handle.loading)
 
   if (loading)
@@ -33,7 +31,7 @@ function LinkList() {
       </p>
       <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
         {links.map((link) => (
-          <LinkItems key={link._id} link={link} onDelete={delLink} />
+          <LinkItems key={link._id} link={link} />
         ))}
       </ul>
     </div>

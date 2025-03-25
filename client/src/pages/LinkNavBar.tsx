@@ -1,6 +1,6 @@
 import useActionLinks from '../hooks/useActionLinks'
 import { Links } from '../types'
-import EditLinkForm from './EditLinkForm'
+import EditLink from './EditLinkForm'
 type LinkNavrBarProps = {
   link: Links
 }
@@ -29,7 +29,7 @@ function LinkNavBar({ link }: LinkNavrBarProps) {
         {link.createdLink?.replace(/^https?:\/\/squishlink/, '')}
       </a>
       <div className='flex items-center gap-2'>
-        <EditLinkForm link={link} />
+        <EditLink link={link} />
         <button
           onClick={onDelete}
           className='transition-all delay-250 ease-in-out cursor-pointer hover:scale-110 hover:text-persian'
