@@ -35,22 +35,8 @@ function LinkForm() {
     <>
       <button
         onClick={() => setIsModalOpen(true)}
-        className='flex flex-row items-center gap-1 text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer p-1.5 text-sm hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
+        className='flex flex-row items-center gap-1 text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer py-2 px-1.75 text-xl shadow-lg shadow-black/70  hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
       >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth={1.5}
-          stroke='currentColor'
-          className='size-4'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='M12 4.5v15m7.5-7.5h-15'
-          />
-        </svg>
         Add link
       </button>
       <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
