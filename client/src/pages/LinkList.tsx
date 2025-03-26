@@ -21,26 +21,28 @@ function LinkList() {
 
   if (!links || !links.length)
     return (
-      <div className='flex flex-col items-center justify-center p-4 text-center text-white transition-opacity delay-300 ease-in opacity-90'>
-        <p className='text-lg font-medium'>No links available</p>
-        <span className='text-sm text-vista'>Start by adding one!</span>
-      </div>
+      <>
+        <div className='relative flex flex-col'>
+          <div className='flex justify-between items-center mt-4'>
+            <p className='text-vista bg-vista/50 rounded px-2 py-1 text-sm font-medium'>
+              {links.length}/15
+            </p>
+            <LinkForm />
+          </div>
+        </div>
+        <div className='flex flex-col items-center justify-center p-4 text-center text-white transition-opacity delay-300 ease-in opacity-90'>
+          <p className='text-lg font-medium'>No links available</p>
+          <span className='text-sm text-vista'>Start by adding one!</span>
+        </div>
+      </>
     )
 
   return (
-    <div className='relative flex flex-col'>
-      <div className='flex justify-between items-center mt-4'>
-        <p className='text-vista bg-vista/50 rounded px-2 py-1 text-sm font-medium'>
-          {links.length}/15
-        </p>
-        <LinkForm />
-      </div>
-      <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
-        {links.map((link) => (
-          <LinkItems key={link._id} link={link} />
-        ))}
-      </ul>
-    </div>
+    <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
+      {links.map((link) => (
+        <LinkItems key={link._id} link={link} />
+      ))}
+    </ul>
   )
 }
 
