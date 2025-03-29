@@ -20,27 +20,27 @@ function LinkFormContent({
       onSubmit={onLinkSubmit}
       className='flex flex-col gap-0.5 text-white relative p-1.5'
     >
-      <p className='text-gray-300 pb-0.5'>Destination link:</p>
+      <p className='text-gray-300 text-lg'>Destination link:</p>
       <input
         type='text'
         autoFocus
         placeholder='https://'
         required
         onChange={(e) => setFormData({ ...formData, userLink: e.target.value })}
-        className='border-1 border-zinc-700 rounded-md p-0.5 py-1 px-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
+        className='text-xl border-1 border-zinc-700 rounded-md py-2 px-2 mt-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
       />
-      <p className='text-gray-300 pb-0.5'>Custom link:</p>
+      <p className='text-gray-300 text-lg mt-2.5'>Custom link:</p>
       <input
         type='text'
         placeholder='custom-link'
         onChange={(e) =>
           setFormData({ ...formData, createdLink: e.target.value })
         }
-        className='border-1 border-zinc-700 rounded-md p-0.5 py-1 px-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
+        className='text-xl border-1 border-zinc-700 rounded-md  py-2 px-2 mt-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
       />
       <button
         type='submit'
-        className='self-end gap-1  text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer px-1 py-1 mt-2 text-sm hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
+        className='self-end text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer px-1 py-1 mt-4 text-lg hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
       >
         Submit
       </button>

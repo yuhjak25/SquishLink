@@ -15,7 +15,7 @@ function Modal({ isOpen, setIsOpen, children }: ModalProps) {
         <button
           type='button'
           onClick={() => setIsOpen(false)}
-          className='text-gray-500 absolute top-[-15px] right-[-15px] transition delay-150 ease-in-out cursor-pointer hover:text-persian hover:scale-105'
+          className='text-gray-500 absolute top-[-20px] right-[-20px] transition delay-150 ease-in-out cursor-pointer hover:text-persian hover:scale-105'
           title='Close Modal'
         >
           <svg
@@ -24,7 +24,7 @@ function Modal({ isOpen, setIsOpen, children }: ModalProps) {
             viewBox='0 0 24 24'
             strokeWidth={1.5}
             stroke='currentColor'
-            className='size-5'
+            className='size-6.5'
           >
             <path
               strokeLinecap='round'
