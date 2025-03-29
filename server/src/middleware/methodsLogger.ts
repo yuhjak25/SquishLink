@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from "express"
 
 const methodLogger = (req: Request, res: Response, next: NextFunction) => {
     const startTime = Date.now()

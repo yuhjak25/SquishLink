@@ -18,7 +18,7 @@ export const loadLinks = async (_req: Request, res: Response): Promise<void> => 
 export const createLink = async (req: Request, res: Response): Promise<void> => {
     try {
         const { userLink, createdLink } = req.body
-        console.log("Request body:", req.body);
+        console.log("Request body:", req.body)
 
 
         if (!userLink) {
