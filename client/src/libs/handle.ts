@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 type HandleState = {
-    loading: boolean
+    loading: boolean,
+    error: string | null
 }
 
 const initialState: HandleState = {
     loading: false,
+    error: null
 }
 
 const handleSlice = createSlice({
@@ -15,7 +17,9 @@ const handleSlice = createSlice({
         setLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload
         },
-
+        setError: (state, action: PayloadAction<string>) => {
+            state.error = action.payload
+        }
     }
 })
 
