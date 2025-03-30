@@ -17,11 +17,14 @@ const handleSlice = createSlice({
         setLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload
         },
-        setError: (state, action: PayloadAction<string>) => {
+        setError: (state, action: PayloadAction<string | null>) => {
             state.error = action.payload
+        },
+        clearError: (state) => {
+            state.error = null
         }
     }
 })
 
-export const { setLoading } = handleSlice.actions
+export const { setLoading, setError, clearError } = handleSlice.actions
 export default handleSlice.reducer

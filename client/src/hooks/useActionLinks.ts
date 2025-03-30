@@ -1,6 +1,6 @@
 import { useAppDispatch } from './useStore'
 import { addLink, deleteLink, plusCount, updateLink } from '../libs/links'
-import { setLoading } from '../libs/handle'
+import { setError, setLoading } from '../libs/handle'
 import { Links } from '../types'
 import { url } from '../constants'
 
@@ -31,12 +31,14 @@ const useActionLinks = () => {
             dispatch(addLink(data))
         } catch (e) {
             console.error('Error creating the link:', e)
+            dispatch(setError(e instanceof Error ? e.message : String(e)))
         } finally {
             dispatch(setLoading(false))
         }
     }
 
     const delLink = async (id: string) => {
+        dispatch(setError(null))
         dispatch(setLoading(true))
         try {
             const res = await fetch(`${url}/${id}`, {
@@ -50,12 +52,14 @@ const useActionLinks = () => {
             return dispatch(deleteLink({ id }))
         } catch (e) {
             console.error('Error deleting the link:', e)
+            dispatch(setError(e instanceof Error ? e.message : String(e)))
         } finally {
             dispatch(setLoading(false))
         }
     }
 
     const updatedLink = async (id: string, createdLink: string) => {
+        dispatch(setError(null))
         dispatch(setLoading(true))
         try {
             const res = await fetch(`${url}/${id}`, {
@@ -75,12 +79,14 @@ const useActionLinks = () => {
             dispatch(updateLink({ id, createdLink: data.createdLink }))
         } catch (e) {
             console.error('Error updating the link:', e)
+            dispatch(setError(e instanceof Error ? e.message : String(e)))
         } finally {
             dispatch(setLoading(false))
         }
     }
 
     const addCount = async (id: string) => {
+        dispatch(setError(null))
         dispatch(setLoading(true))
         try {
 
@@ -99,6 +105,7 @@ const useActionLinks = () => {
             dispatch(plusCount(data))
         } catch (e) {
             console.error('Error adding count:', e)
+            dispatch(setError(e instanceof Error ? e.message : String(e)))
         } finally {
             dispatch(setLoading(false))
         }
