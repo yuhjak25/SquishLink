@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { Links } from '../types'
 import useActionLinks from '../hooks/useActionLinks'
 import Modal from './Modal'
-import { useAppSelector } from '../hooks/useStore'
+import { useAppDispatch, useAppSelector } from '../hooks/useStore'
+import { clearError, setError } from '../libs/handle'
+import { ErrorBoundary } from 'react-error-boundary'
+import ErrorFallback from './ErrorBoundary'
 
 type LinkFormProps = {
   formData: Links
@@ -15,29 +18,35 @@ function LinkFormContent({
   setFormData,
   onLinkSubmit,
 }: LinkFormProps) {
+  const error = useAppSelector((state) => state.handle.error)
   return (
     <form
       onSubmit={onLinkSubmit}
       className='flex flex-col gap-0.5 text-white relative p-1.5'
     >
       <p className='text-gray-300 text-lg'>Destination link:</p>
+      {error && <p className='text-persian'>{error} </p>}
       <input
         type='text'
         autoFocus
         placeholder='https://'
         required
+        value={formData.userLink}
         onChange={(e) => setFormData({ ...formData, userLink: e.target.value })}
         className='text-xl border-1 border-zinc-700 rounded-md py-2 px-2 mt-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
       />
+
       <p className='text-gray-300 text-lg mt-2.5'>Custom link:</p>
       <input
         type='text'
         placeholder='custom-link'
+        value={formData.createdLink}
         onChange={(e) =>
           setFormData({ ...formData, createdLink: e.target.value })
         }
         className='text-xl border-1 border-zinc-700 rounded-md  py-2 px-2 mt-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
       />
+
       <button
         type='submit'
         className='self-end text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer px-1 py-1 mt-4 text-lg hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
@@ -57,23 +66,26 @@ function LinkForm() {
   })
   const [isModalOpen, setIsModalOpen] = useState(false)
   const links = useAppSelector((state) => state.links)
+  const dispatch = useAppDispatch()
 
   const onLinkSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-
     console.log('Form data before sending:', formData)
 
     try {
+      setIsModalOpen(true)
       await createLinks(formData)
 
+      console.log('✅ Created succesfully')
       setFormData({
         _id: '',
         userLink: '',
         createdLink: '',
       })
-      setIsModalOpen(false)
     } catch (e) {
       console.error('Error creating your link:', e)
+      setIsModalOpen(true)
+      dispatch(setError(e instanceof Error ? e.message : String(e)))
     }
   }
 
@@ -103,13 +115,18 @@ function LinkForm() {
         )}
       </button>
 
-      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-        <LinkFormContent
-          formData={formData}
-          onLinkSubmit={onLinkSubmit}
-          setFormData={setFormData}
-        />
-      </Modal>
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => dispatch(clearError())}
+      >
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+          <LinkFormContent
+            formData={formData}
+            onLinkSubmit={onLinkSubmit}
+            setFormData={setFormData}
+          />
+        </Modal>
+      </ErrorBoundary>
     </>
   )
 }
