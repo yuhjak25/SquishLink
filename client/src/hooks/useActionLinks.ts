@@ -72,19 +72,19 @@ const useActionLinks = () => {
         }
     }
 
-    const updatedLink = async (id: string, createdLink: string) => {
-        dispatch(setLoading(true))
+    const updatedLink = async (id: string, updLink: string) => {
         try {
             const res = await fetch(`${url}/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ createdLink })
+                body: JSON.stringify({ updLink })
             })
 
             if (!res.ok) {
                 const data = await res.json()
+                console.log(data.error)
                 if (data.error) {
                     const errors: FormErrors = {}
                     data.error.forEach((err: { path: string[], message: string }) => {
@@ -95,9 +95,8 @@ const useActionLinks = () => {
                 }
                 return
             }
-
+            dispatch(setLoading(true))
             const data = await res.json()
-
             dispatch(updateLink({ id, createdLink: data.createdLink }))
         } catch (e) {
             console.error('Error updating the link:', e)
