@@ -10,6 +10,6 @@ export const linkSchema = z.object({
 })
 
 export const updateLinkSchema = z.object({
-    createdLink: z.string().min(3, { message: 'Custom link must be at least 3 characters long.' })
+    updLink: z.string().min(3, { message: 'Custom link must be at least 3 characters long.' })
         .max(6, { message: 'Custom link cannot exceed 6 characters.' }),
 })

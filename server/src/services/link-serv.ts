@@ -135,7 +135,7 @@ export const deleteLink = async (req: Request, res: Response): Promise<void> => 
 export const updateLink = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params
-        const { createdLink } = req.body
+        const { updLink } = req.body
 
         if (!id) {
             res.status(400).json({
@@ -143,7 +143,7 @@ export const updateLink = async (req: Request, res: Response): Promise<void> => 
             })
             return
         }
-        const finalLink = `https://squishlink/${createdLink}`
+        const finalLink = `https://squishlink/${updLink}`
 
         const updatedLink = await Link.findByIdAndUpdate(id, { createdLink: finalLink }, { new: true })
 
