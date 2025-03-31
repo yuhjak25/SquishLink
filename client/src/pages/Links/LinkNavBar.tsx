@@ -1,6 +1,6 @@
-import useActionLinks from '../hooks/useActionLinks'
-import { Links } from '../types'
-import EditLink from './EditLinkForm'
+import useActionLinks from '../../hooks/links/useActionLinks'
+import { Links } from '../../types'
+import EditLink from '../Forms/EditLinkForm'
 type LinkNavrBarProps = {
   link: Links
 }

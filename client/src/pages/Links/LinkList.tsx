@@ -1,7 +1,7 @@
 import LinkItems from './LinkItems'
-import useLinks from '../hooks/useLinks'
-import { useAppSelector } from '../hooks/useStore'
-import LinkForm from './LinkForm'
+import useLinks from '../../hooks/links/useLinks'
+import { useAppSelector } from '../../hooks/useStore'
+import LinkForm from '../Forms/LinkForm'
 
 function LinkList() {
   const { links } = useLinks()
@@ -33,6 +33,7 @@ function LinkList() {
         </div>
       </>
     )
+
   return (
     <>
       <div className='relative flex flex-col'>
