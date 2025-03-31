@@ -3,7 +3,7 @@ import { Links } from '../types'
 import useActionLinks from '../hooks/useActionLinks'
 import Modal from './Modal'
 import { useAppDispatch, useAppSelector } from '../hooks/useStore'
-import { clearError, setError } from '../libs/handle'
+import { clearError } from '../libs/handle'
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorFallback from './ErrorBoundary'
 
@@ -25,7 +25,11 @@ function LinkFormContent({
       className='flex flex-col gap-0.5 text-white relative p-1.5'
     >
       <p className='text-gray-300 text-lg'>Destination link:</p>
-      {error && <p className='text-persian'>{error} </p>}
+      {error && (
+        <p className='text-persian transition-all ease-in-out delay-150'>
+          {error.userLink}{' '}
+        </p>
+      )}
       <input
         type='text'
         autoFocus
@@ -37,6 +41,7 @@ function LinkFormContent({
       />
 
       <p className='text-gray-300 text-lg mt-2.5'>Custom link:</p>
+      {error && <p className='text-persian'>{error.createdLink} </p>}
       <input
         type='text'
         placeholder='custom-link'
@@ -82,10 +87,12 @@ function LinkForm() {
         userLink: '',
         createdLink: '',
       })
+      setTimeout(() => {
+        dispatch(clearError())
+      }, 3000)
     } catch (e) {
       console.error('Error creating your link:', e)
       setIsModalOpen(true)
-      dispatch(setError(e instanceof Error ? e.message : String(e)))
     }
   }
 
