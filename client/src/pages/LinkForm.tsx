@@ -25,7 +25,7 @@ function LinkFormContent({
       className='flex flex-col gap-0.5 text-white relative p-1.5'
     >
       <p className='text-gray-300 text-lg'>Destination link:</p>
-      {error && (
+      {error.userLink && (
         <p className='text-persian transition-all ease-in-out delay-150'>
           {error.userLink}{' '}
         </p>
@@ -41,7 +41,11 @@ function LinkFormContent({
       />
 
       <p className='text-gray-300 text-lg mt-2.5'>Custom link:</p>
-      {error && <p className='text-persian'>{error.createdLink} </p>}
+      {error.createdLink && (
+        <p className='text-persian transition-all ease-in-out delay-150'>
+          {error.createdLink}{' '}
+        </p>
+      )}
       <input
         type='text'
         placeholder='custom-link'
@@ -78,15 +82,14 @@ function LinkForm() {
     console.log('Form data before sending:', formData)
 
     try {
-      setIsModalOpen(true)
       await createLinks(formData)
 
-      console.log('✅ Created succesfully')
       setFormData({
         _id: '',
         userLink: '',
         createdLink: '',
       })
+
       setTimeout(() => {
         dispatch(clearError())
       }, 3000)

@@ -2,6 +2,11 @@ import { useState } from 'react'
 import { Links } from '../types'
 import useActionLinks from '../hooks/useActionLinks'
 import Modal from './Modal'
+import { useDispatch } from 'react-redux'
+import { clearError } from '../libs/handle'
+import ErrorFallback from './ErrorBoundary'
+import { ErrorBoundary } from 'react-error-boundary'
+import { useAppSelector } from '../hooks/useStore'
 
 type EditLinks = {
   link: Links
@@ -11,23 +16,23 @@ function EditLink({ link }: EditLinks) {
   const { updatedLink } = useActionLinks()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [updateLink, setUpdatedLink] = useState(link.createdLink ?? '')
+  const error = useAppSelector((state) => state.handle.error)
+  const dispatch = useDispatch()
 
   const onUpdateLinkSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     console.log('Form data update:', updateLink)
 
     try {
-      if (updateLink === link.createdLink) {
-        console.warn('Nothing changed')
-        setIsModalOpen(false)
-        return
-      }
-
       await updatedLink(link._id, updateLink)
+
       setUpdatedLink('')
-      setIsModalOpen(false)
+      setTimeout(() => {
+        dispatch(clearError())
+      }, 3000)
     } catch (e) {
       console.error('Error updating your link:', e)
+      setIsModalOpen(true)
     }
   }
 
@@ -53,28 +58,39 @@ function EditLink({ link }: EditLinks) {
           />
         </svg>
       </button>
-      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-        <form
-          onSubmit={onUpdateLinkSubmit}
-          className='flex flex-col gap-0.5 text-white relative p-1.5'
-        >
-          <p className='text-gray-300 pb-0.5'>Edit link:</p>
-          <input
-            type='text'
-            autoFocus
-            placeholder='custom-link'
-            onChange={(e) => setUpdatedLink(e.target.value)}
-            className='border-1 border-zinc-700 rounded-md p-0.5 py-1 px-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
-          />
-
-          <button
-            type='submit'
-            className='self-end gap-1  text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer px-1 py-1 mt-2 text-sm hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => dispatch(clearError())}
+      >
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+          <form
+            onSubmit={onUpdateLinkSubmit}
+            className='flex flex-col gap-0.5 text-white relative p-1.5'
           >
-            Submit
-          </button>
-        </form>
-      </Modal>
+            <p className='text-gray-300 text-lg'>Edit link:</p>
+            {error.updLink && (
+              <p className='text-persian transition-all ease-in-out delay-150'>
+                {error.updLink}
+              </p>
+            )}
+
+            <input
+              type='text'
+              autoFocus
+              placeholder='custom-link'
+              onChange={(e) => setUpdatedLink(e.target.value)}
+              className='text-xl border-1 border-zinc-700 rounded-md py-2 px-2 mt-1 transition-all delay-200 ease-in-out focus:outline-none focus:ring-1 focus:ring-vista focus:border-transparent'
+            />
+
+            <button
+              type='submit'
+              className='self-end text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer px-1 py-1 mt-4 text-lg hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
+            >
+              Submit
+            </button>
+          </form>
+        </Modal>
+      </ErrorBoundary>
     </>
   )
 }

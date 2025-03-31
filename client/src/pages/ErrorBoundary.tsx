@@ -21,7 +21,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   }, [error, dispatch, resetErrorBoundary])
 
   return (
-    <div className='bg-red-500/20 text-red-500 p-2 rounded-md mb-2'>
+    <div className='text-persian bg-persian/60 rounded-lg p-1  transition-all ease-in-out delay-150'>
       <p>Error: {error.message}</p>
     </div>
   )
