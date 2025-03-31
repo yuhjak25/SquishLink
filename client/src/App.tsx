@@ -1,4 +1,4 @@
-import LinkList from './pages/LinkList'
+import LinkList from './pages/Links/LinkList'
 
 function App() {
   return (
