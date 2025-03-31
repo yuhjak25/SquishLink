@@ -1,6 +1,6 @@
 import { useAppDispatch } from './useStore'
 import { addLink, deleteLink, plusCount, updateLink } from '../libs/links'
-import { setError, setLoading } from '../libs/handle'
+import { FormErrors, setError, setLoading } from '../libs/handle'
 import { Links } from '../types'
 import { url } from '../constants'
 
@@ -19,12 +19,16 @@ const useActionLinks = () => {
                 }
             })
 
+
             if (!res.ok) {
                 const data = await res.json()
                 if (data.error) {
-                    data.error.forEach((err: { message: string }) => {
-                        dispatch(setError(err.message))
+                    const errors: FormErrors = {}
+                    data.error.forEach((err: { path: string[], message: string }) => {
+                        const field = err.path[0]
+                        errors[field as keyof FormErrors] = err.message
                     })
+                    dispatch(setError(errors))
                 }
                 return
             }
@@ -35,14 +39,12 @@ const useActionLinks = () => {
             dispatch(addLink(data))
         } catch (e) {
             console.error('Error creating the link:', e)
-            dispatch(setError(e instanceof Error ? e.message : String(e)))
         } finally {
             dispatch(setLoading(false))
         }
     }
 
     const delLink = async (id: string) => {
-        dispatch(setError(null))
         dispatch(setLoading(true))
         try {
             const res = await fetch(`${url}/${id}`, {
@@ -50,20 +52,27 @@ const useActionLinks = () => {
             })
 
             if (!res.ok) {
-                throw new Error('Error deleting the link.')
+                const data = await res.json()
+                if (data.error) {
+                    const errors: FormErrors = {}
+                    data.error.forEach((err: { path: string[], message: string }) => {
+                        const field = err.path[0]
+                        errors[field as keyof FormErrors] = err.message
+                    })
+                    dispatch(setError(errors))
+                }
+                return
             }
 
             return dispatch(deleteLink({ id }))
         } catch (e) {
             console.error('Error deleting the link:', e)
-            dispatch(setError(e instanceof Error ? e.message : String(e)))
         } finally {
             dispatch(setLoading(false))
         }
     }
 
     const updatedLink = async (id: string, createdLink: string) => {
-        dispatch(setError(null))
         dispatch(setLoading(true))
         try {
             const res = await fetch(`${url}/${id}`, {
@@ -75,7 +84,16 @@ const useActionLinks = () => {
             })
 
             if (!res.ok) {
-                throw new Error('Error updating the link.')
+                const data = await res.json()
+                if (data.error) {
+                    const errors: FormErrors = {}
+                    data.error.forEach((err: { path: string[], message: string }) => {
+                        const field = err.path[0]
+                        errors[field as keyof FormErrors] = err.message
+                    })
+                    dispatch(setError(errors))
+                }
+                return
             }
 
             const data = await res.json()
@@ -83,14 +101,12 @@ const useActionLinks = () => {
             dispatch(updateLink({ id, createdLink: data.createdLink }))
         } catch (e) {
             console.error('Error updating the link:', e)
-            dispatch(setError(e instanceof Error ? e.message : String(e)))
         } finally {
             dispatch(setLoading(false))
         }
     }
 
     const addCount = async (id: string) => {
-        dispatch(setError(null))
         dispatch(setLoading(true))
         try {
 
@@ -102,14 +118,22 @@ const useActionLinks = () => {
             })
 
             if (!res.ok) {
-                throw new Error('Error adding count.')
+                const data = await res.json()
+                if (data.error) {
+                    const errors: FormErrors = {}
+                    data.error.forEach((err: { path: string[], message: string }) => {
+                        const field = err.path[0]
+                        errors[field as keyof FormErrors] = err.message
+                    })
+                    dispatch(setError(errors))
+                }
+                return
             }
 
             const data = await res.json()
             dispatch(plusCount(data))
         } catch (e) {
             console.error('Error adding count:', e)
-            dispatch(setError(e instanceof Error ? e.message : String(e)))
         } finally {
             dispatch(setLoading(false))
         }

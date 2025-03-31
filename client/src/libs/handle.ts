@@ -1,13 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
+
+export interface FormErrors {
+    userLink?: string,
+    createdLink?: string
+}
+
 type HandleState = {
     loading: boolean,
-    error: string | null
+    error: FormErrors
 }
 
 const initialState: HandleState = {
     loading: false,
-    error: null
+    error: {} as FormErrors
 }
 
 const handleSlice = createSlice({
@@ -17,11 +23,11 @@ const handleSlice = createSlice({
         setLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload
         },
-        setError: (state, action: PayloadAction<string | null>) => {
+        setError: (state, action: PayloadAction<object>) => {
             state.error = action.payload
         },
         clearError: (state) => {
-            state.error = null
+            state.error = {}
         }
     }
 })
