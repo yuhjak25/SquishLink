@@ -1,8 +1,8 @@
 import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "./useStore"
-import { setLinks } from "../libs/links"
-import { setLoading } from "../libs/handle"
-import { url } from "../constants"
+import { useAppDispatch, useAppSelector } from "../useStore"
+import { setLinks } from "../../libs/links"
+import { setLoading } from "../../libs/handle"
+import { url } from "../../constants"
 
 const useLinks = () => {
     const dispatch = useAppDispatch()

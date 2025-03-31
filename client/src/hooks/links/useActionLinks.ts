@@ -1,8 +1,8 @@
-import { useAppDispatch } from './useStore'
-import { addLink, deleteLink, plusCount, updateLink } from '../libs/links'
-import { FormErrors, setError, setLoading } from '../libs/handle'
-import { Links } from '../types'
-import { url } from '../constants'
+import { useAppDispatch } from '../useStore'
+import { addLink, deleteLink, plusCount, updateLink } from '../../libs/links'
+import { FormErrors, setError, setLoading } from '../../libs/handle'
+import { Links } from '../../types'
+import { url } from '../../constants'
 
 
 const useActionLinks = () => {
