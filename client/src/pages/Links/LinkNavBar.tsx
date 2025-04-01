@@ -24,16 +24,30 @@ function LinkNavBar({ link }: LinkNavrBarProps) {
         target='_blank'
         href={link.createdLink}
         onClick={handleCount}
-        className='text-2xl font-bold transition-all delay-250 ease-in-out break-words hover:underline hover:underline-offset-4 hover:underline-vista/80 hover:decoration-dotted hover:text-vista truncate max-w-[80%] sm:max-w-full'
+        className='flex flex-row justify-center items-center gap-1 text-2xl font-bold transition-all delay-250 ease-in-out break-words hover:underline hover:underline-offset-4 hover:underline-vista/80 hover:decoration-dotted hover:text-vista truncate max-w-[80%] sm:max-w-full'
       >
         {link.createdLink?.replace(/^https?:\/\/squishlink/, '')}
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 24 24'
+          strokeWidth={1.5}
+          stroke='currentColor'
+          className='size-4'
+        >
+          <path
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            d='m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25'
+          />
+        </svg>
       </a>
       <div className='flex items-center gap-2'>
         <EditLink link={link} />
         <button
           onClick={onDelete}
           className='transition-all delay-250 ease-in-out cursor-pointer hover:scale-110 hover:text-persian'
-          title='Eliminar enlace'
+          title='Delete Link'
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
