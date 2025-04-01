@@ -19,7 +19,13 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
     try {
         const { userLink, createdLink } = req.body
         console.log("Request body:", req.body)
+        const totalLinks = await Link.countDocuments()
 
+        if (totalLinks >= 15) {
+            res.status(400).json({
+                error: 'The limit of 15 links has been reached.'
+            })
+        }
 
         if (!userLink) {
             res.status(400).json({

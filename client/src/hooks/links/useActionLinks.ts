@@ -22,8 +22,11 @@ const useActionLinks = () => {
 
             if (!res.ok) {
                 const data = await res.json()
-                if (data.error) {
+                if (typeof data.error === 'string') {
+                    dispatch(setError({ general: data.error }))
+                } else if (Array.isArray(data.error)) {
                     const errors: FormErrors = {}
+
                     data.error.forEach((err: { path: string[], message: string }) => {
                         const field = err.path[0]
                         errors[field as keyof FormErrors] = err.message
@@ -32,7 +35,6 @@ const useActionLinks = () => {
                 }
                 return
             }
-
             dispatch(setLoading(true))
             const data = await res.json()
             console.log(data)

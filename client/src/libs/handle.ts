@@ -4,7 +4,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 export interface FormErrors {
     userLink?: string,
     createdLink?: string,
-    updLink?: string
+    updLink?: string,
+    general?: string
 }
 
 type HandleState = {
