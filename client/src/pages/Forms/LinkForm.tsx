@@ -43,6 +43,7 @@ function LinkForm() {
   return (
     <>
       <button
+        title='Create Link'
         onClick={() => setIsModalOpen(true)}
         className='gap-1 text-white font-semibold border border-zinc-700 rounded-md bg-eerie-black transition duration-300 ease-in-out cursor-pointer py-2 px-1.75 text-xl shadow-lg shadow-black/70 hover:text-white hover:-translate-y-1 hover:bg-vista hover:scale-105 hover:border-transparent'
       >
