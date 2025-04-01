@@ -43,7 +43,7 @@ function LinkList() {
             {links.length}/15
           </p>
         </div>
-        <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4'>
+        <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 mb-4'>
           {links.map((link) => (
             <LinkItems key={link._id} link={link} />
           ))}

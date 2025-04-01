@@ -24,6 +24,11 @@ function LinkFormContent({
           {error.userLink}{' '}
         </p>
       )}
+      {error && (
+        <p className='text-persian transition-all ease-in-out delay-150'>
+          {error.general}
+        </p>
+      )}
       <input
         type='text'
         autoFocus
@@ -37,7 +42,7 @@ function LinkFormContent({
       <p className='text-gray-300 text-lg mt-2.5'>Custom link:</p>
       {error.createdLink && (
         <p className='text-persian transition-all ease-in-out delay-150'>
-          {error.createdLink}{' '}
+          {error.createdLink}
         </p>
       )}
       <input
