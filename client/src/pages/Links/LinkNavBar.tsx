@@ -1,6 +1,7 @@
 import useActionLinks from '../../hooks/links/useActionLinks'
 import { Links } from '../../types'
 import EditLink from '../Forms/EditLinkForm'
+import CopyButton from '../shared/CopyButton'
 type LinkNavrBarProps = {
   link: Links
 }
@@ -17,6 +18,7 @@ function LinkNavBar({ link }: LinkNavrBarProps) {
   const onDelete = () => {
     delLink(link._id)
   }
+
   return (
     <div className='flex flex-wrap justify-between items-start sm:items-center'>
       <a
@@ -64,6 +66,8 @@ function LinkNavBar({ link }: LinkNavrBarProps) {
             />
           </svg>
         </button>
+
+        <CopyButton link={link} />
       </div>
     </div>
   )

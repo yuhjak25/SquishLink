@@ -9,13 +9,19 @@ function LinkList() {
 
   if (loading)
     return (
-      <div className='flex justify-end pr-4'>
-        <p
-          className='text-white text-xl font-medium animate-[bounce_1.5s_infinite]'
-          aria-live='polite'
-        >
-          ...
+      <div className='flex flex-col bg-eerie-black border border-zinc-700 shadow-lg shadow-black/70 text-white p-6 gap-1 rounded-lg sm:max-w-full animate-pulse'>
+        <p className='text-zinc-300 break-words truncate text-[18.5px] max-w-[220px] pt-0.5'>
+          <span className='block h-4 bg-zinc-700 rounded w-3/4'></span>
         </p>
+
+        <div className='flex justify-between items-center gap-3 pt-1.5'>
+          <p className='text-base'>
+            <span className='block h-3 bg-zinc-700 rounded w-16'></span>
+          </p>
+          <p className='text-zinc-300 text-base'>
+            <span className='block h-3 bg-zinc-700 rounded w-20'></span>
+          </p>
+        </div>
       </div>
     )
 
