@@ -9,16 +9,14 @@ function CopyButton({ link }: CopyButtonProps) {
 
   const onCopy = () => {
     if (link.createdLink) {
-      navigator.clipboard.writeText(link.createdLink).then(() => {
-        console.log('Copied to clipboard')
-      })
+      navigator.clipboard.writeText(link.createdLink)
       setCopy(true)
 
       setTimeout(() => {
         setCopy(false)
       }, 1500)
     } else {
-      console.error('Link is undefined, cannot copy to clipboard')
+      throw new Error("Couldn't copy the link.")
     }
   }
   return (
@@ -35,7 +33,7 @@ function CopyButton({ link }: CopyButtonProps) {
           viewBox='0 0 24 24'
           strokeWidth={1.5}
           stroke='currentColor'
-          className='size-5.25 text-viridian animate-pulse '
+          className='size-6 text-viridian animate-pulse '
         >
           <path
             strokeLinecap='round'
