@@ -25,6 +25,7 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
             res.status(400).json({
                 error: 'The limit of 15 links has been reached.'
             })
+            return
         }
 
         if (!userLink) {
@@ -46,7 +47,7 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
         }
 
         if (createdLink) {
-            const existingCustomLink = await Link.findOne({ createdLink: `https://squishlink/${createdLink}` })
+            const existingCustomLink = await Link.findOne({ createdLink: `https://squishlink.com/${createdLink}` })
 
             if (existingCustomLink) {
                 res.status(400).json({ error: 'This custom link is already taken.' })
