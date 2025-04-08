@@ -24,9 +24,9 @@ function LinkNavBar({ link }: LinkNavrBarProps) {
       <a
         rel='noopener noreferrer'
         target='_blank'
-        href={link.createdLink}
+        href={link.userLink}
         onClick={handleCount}
-        className='flex flex-row justify-center items-center gap-1 text-2xl font-bold transition-all delay-250 ease-in-out break-words hover:underline hover:underline-offset-4 hover:underline-vista/80 hover:decoration-dotted hover:text-vista truncate max-w-[80%] sm:max-w-full'
+        className='flex flex-row justify-center items-center gap-1 text-2xl font-bold transition-all delay-250 ease-in-out break-words mr-2 hover:underline hover:underline-offset-4 hover:underline-vista/80 hover:decoration-dotted hover:text-vista truncate max-w-[80%] sm:max-w-full'
       >
         {link.createdLink?.replace(/^https?:\/\/squishlink/, '')}
         <svg
