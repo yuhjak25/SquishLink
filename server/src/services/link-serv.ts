@@ -47,7 +47,7 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
         }
 
         if (createdLink) {
-            const existingCustomLink = await Link.findOne({ createdLink: `https://squishlink/${createdLink}` })
+            const existingCustomLink = await Link.findOne({ createdLink: `http://localhost:3000/${createdLink}` })
 
             if (existingCustomLink) {
                 res.status(400).json({ error: 'This custom link is already taken.' })
@@ -55,7 +55,7 @@ export const createLink = async (req: Request, res: Response): Promise<void> => 
             }
         }
 
-        const finalLink = createdLink ? `https://squishlink/${createdLink}` : `https://squishlink/${nanoid(6)}`
+        const finalLink = createdLink ? `http://localhost:3000/${createdLink}` : `http://localhost:3000/${nanoid(6)}`
 
         const newLink = new Link({
             userLink,
@@ -150,7 +150,7 @@ export const updateLink = async (req: Request, res: Response): Promise<void> => 
             })
             return
         }
-        const finalLink = `https://squishlink/${updLink}`
+        const finalLink = `http://localhost:3000/${updLink}`
 
         const updatedLink = await Link.findByIdAndUpdate(id, { createdLink: finalLink }, { new: true })
 
@@ -169,5 +169,30 @@ export const updateLink = async (req: Request, res: Response): Promise<void> => 
         })
         console.log('Error:', e)
         return
+    }
+}
+
+export const redirectLink = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { shortUrl } = req.params
+        console.log('Petición para redirigir:', shortUrl)
+        const fullUrl = `http://localhost:3000/${shortUrl}`
+
+        const findUrl = await Link.findOne({ createdLink: fullUrl })
+
+        console.log('Resultado de la DB:', findUrl)
+
+        if (!findUrl) {
+            res.status(404).json({ error: 'URL not found' })
+            return
+        }
+        findUrl.count += 1
+        await findUrl.save()
+        res.redirect(findUrl.userLink)
+    } catch (e) {
+        console.error('Error en redirectLink:', e)
+        res.status(500).json({
+            error: 'A server error occurred: Failed to load original link.'
+        })
     }
 }
