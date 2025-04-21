@@ -7,23 +7,27 @@ function LinkList() {
   const { links } = useLinks()
   const loading = useAppSelector((state) => state.handle.loading)
 
-  if (loading)
+  if (loading) {
     return (
-      <div className='flex flex-col bg-eerie-black border border-zinc-700 shadow-lg shadow-black/70 text-white p-6 gap-1 rounded-lg sm:max-w-full animate-pulse'>
-        <p className='text-zinc-300 break-words truncate text-[18.5px] max-w-[220px] pt-0.5'>
-          <span className='block h-4 bg-zinc-700 rounded w-3/4'></span>
-        </p>
-
-        <div className='flex justify-between items-center gap-3 pt-1.5'>
-          <p className='text-base'>
-            <span className='block h-3 bg-zinc-700 rounded w-16'></span>
-          </p>
-          <p className='text-zinc-300 text-base'>
-            <span className='block h-3 bg-zinc-700 rounded w-20'></span>
-          </p>
-        </div>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 mb-4'>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
+            key={i}
+            className='bg-eerie-black border border-zinc-700 shadow-lg shadow-black/70 text-white p-4 rounded-lg animate-pulse space-y-3'
+          >
+            <div className='h-4 bg-zinc-700 rounded w-3/4'></div>
+            <div className='h-3 bg-zinc-700 rounded w-1/2'></div>
+            <div className='h-3 bg-zinc-700 rounded w-full'></div>
+            <div className='h-3 bg-zinc-700 rounded w-5/6'></div>
+            <div className='flex justify-end gap-2 pt-2'>
+              <div className='h-6 w-12 bg-zinc-700 rounded'></div>
+              <div className='h-6 w-12 bg-zinc-700 rounded'></div>
+            </div>
+          </div>
+        ))}
       </div>
     )
+  }
 
   if (!links || !links.length)
     return (
